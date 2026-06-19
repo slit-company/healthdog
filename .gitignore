@@ -1,0 +1,12 @@
+node_modules
+dist
+.DS_Store
+*.local
+playwright-report
+test-results
+.vercel
+
+# Local tooling / agent artifacts (not project source)
+.omo
+.playwright-mcp
+.codegraph

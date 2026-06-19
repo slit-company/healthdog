@@ -1,0 +1,96 @@
+import type { Branch, HealthdogBranch } from "./types";
+
+export const healthdogBranches: readonly HealthdogBranch[] = [
+  {
+    slug: "changwon",
+    name: "창원점",
+    region: "경남 창원",
+    status: "상담 가능",
+    address: "경남 창원시 의창구 남산로115번길 59-1 1층",
+    phone: "010-5782-7972",
+    note: "아이 확인과 방문 상담을 함께 안내합니다.",
+    naverPlaceHref: "https://map.naver.com/p/entry/place/2017077891",
+    blogHref: "https://blog.naver.com/82bcgpcvhq",
+    instagramHref: "https://www.instagram.com/healt__dog/",
+  },
+  {
+    slug: "suwon",
+    name: "수원점",
+    region: "경기 수원",
+    status: "방문 예약",
+    address: "경기 수원시 영통구 대학1로8번길 73 1층",
+    phone: "0507-1409-1321",
+    note: "사진으로 본 아이를 가까운 지점 상담으로 연결합니다.",
+    naverPlaceHref: "https://map.naver.com/p/entry/place/1974831260",
+    blogHref: "https://blog.naver.com/simin428",
+    instagramHref: "https://www.instagram.com/healthdog_suwon/",
+    kakaoHref: "https://pf.kakao.com/_dZqfn",
+  },
+  {
+    slug: "busan",
+    name: "부산점",
+    region: "부산",
+    status: "아이 확인",
+    address: "부산 부산진구 새싹로 83-1 1층",
+    phone: "0507-1312-3666",
+    note: "아이별 컨디션과 상담 가능 여부를 확인합니다.",
+    naverPlaceHref: "https://map.naver.com/p/entry/place/2023622711",
+    blogHref: "https://blog.naver.com/gpwjd7240",
+    instagramHref: "https://www.instagram.com/healthdog.1/",
+    kakaoHref: "http://pf.kakao.com/_xjxcxccn",
+  },
+  {
+    slug: "pyeongtaek",
+    name: "평택점",
+    region: "경기 평택",
+    status: "지점 확인",
+    address: "경기 평택시 원평로 49",
+    phone: "010-3592-7940",
+    note: "상담 전 아이 상태와 지점 상황을 확인합니다.",
+    naverPlaceHref: "https://map.naver.com/p/entry/place/2073295754",
+    blogHref: "https://blog.naver.com/baik3019",
+    instagramHref: "https://map.naver.com/p/entry/place/2073295754",
+    kakaoHref: "http://pf.kakao.com/_HDxown",
+  },
+  {
+    slug: "incheon-gimpo",
+    name: "인천김포점",
+    region: "인천/김포",
+    status: "상담 가능",
+    address: "네이버 지도에서 위치 확인",
+    phone: "카카오 채널로 문의",
+    note: "보호자 생활환경과 아이 성향을 함께 상담합니다.",
+    naverPlaceHref: "https://map.naver.com/p/entry/place/2026347819",
+    blogHref: "https://blog.naver.com/gmltjs9397",
+    instagramHref: "https://www.instagram.com/healthdog_incheon_kimpo",
+    kakaoHref: "https://pf.kakao.com/_xjXWLn",
+  },
+  {
+    slug: "songpa",
+    name: "송파점",
+    region: "서울 송파",
+    status: "방문 예약",
+    address: "네이버 지도에서 위치 확인",
+    phone: "010-8240-3212",
+    note: "가까운 서울권 상담 채널로 연결합니다.",
+    naverPlaceHref: "https://map.naver.com/p/entry/place/2096132236",
+    blogHref: "https://blog.naver.com/young417602",
+    instagramHref: "https://www.instagram.com/heal_thdog_official",
+    kakaoHref: "http://pf.kakao.com/_Stywn",
+  },
+] as const;
+
+export const branches: readonly Branch[] = healthdogBranches.map((branch) => ({
+  ...branch,
+  summary: branch.note,
+  hours: "네이버 지도에서 확인",
+  channels: [
+    { label: "네이버 지도", href: branch.naverPlaceHref },
+    ...(branch.kakaoHref ? [{ label: "카카오", href: branch.kakaoHref }] : []),
+    { label: "인스타그램", href: branch.instagramHref },
+  ],
+}));
+
+export function getBranchBySlug(slug: string): HealthdogBranch | undefined {
+  return healthdogBranches.find((branch) => branch.slug === slug);
+}

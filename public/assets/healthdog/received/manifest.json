@@ -1,0 +1,82 @@
+[
+  {
+    "kind": "pets",
+    "source": "/Users/cosmos/Downloads/pets (2)/KakaoTalk_20260530_210511836.jpg",
+    "file": "public/assets/healthdog/received/pets/pet-01.webp",
+    "path": "/public/assets/healthdog/received/pets/pet-01.webp",
+    "width": 1400,
+    "height": 1400
+  },
+  {
+    "kind": "pets",
+    "source": "/Users/cosmos/Downloads/pets (2)/KakaoTalk_20260530_210511836_01.jpg",
+    "file": "public/assets/healthdog/received/pets/pet-02.webp",
+    "path": "/public/assets/healthdog/received/pets/pet-02.webp",
+    "width": 1400,
+    "height": 1400
+  },
+  {
+    "kind": "pets",
+    "source": "/Users/cosmos/Downloads/pets (2)/KakaoTalk_20260530_210511836_02.jpg",
+    "file": "public/assets/healthdog/received/pets/pet-03.webp",
+    "path": "/public/assets/healthdog/received/pets/pet-03.webp",
+    "width": 1400,
+    "height": 1400
+  },
+  {
+    "kind": "pets",
+    "source": "/Users/cosmos/Downloads/pets (2)/KakaoTalk_20260530_210511836_03.jpg",
+    "file": "public/assets/healthdog/received/pets/pet-04.webp",
+    "path": "/public/assets/healthdog/received/pets/pet-04.webp",
+    "width": 1400,
+    "height": 1400
+  },
+  {
+    "kind": "pets",
+    "source": "/Users/cosmos/Downloads/pets (2)/KakaoTalk_20260530_210511836_04.jpg",
+    "file": "public/assets/healthdog/received/pets/pet-05.webp",
+    "path": "/public/assets/healthdog/received/pets/pet-05.webp",
+    "width": 1400,
+    "height": 1400
+  },
+  {
+    "kind": "pets",
+    "source": "/Users/cosmos/Downloads/pets (2)/KakaoTalk_20260530_210511836_07.jpg",
+    "file": "public/assets/healthdog/received/pets/pet-06.webp",
+    "path": "/public/assets/healthdog/received/pets/pet-06.webp",
+    "width": 1400,
+    "height": 1400
+  },
+  {
+    "kind": "reviews",
+    "source": "/Users/cosmos/Downloads/petreviews (1)/KakaoTalk_20260530_210636816.png",
+    "file": "public/assets/healthdog/received/reviews/review-01.webp",
+    "path": "/public/assets/healthdog/received/reviews/review-01.webp",
+    "width": 464,
+    "height": 588
+  },
+  {
+    "kind": "reviews",
+    "source": "/Users/cosmos/Downloads/petreviews (1)/KakaoTalk_20260530_210636816_01.png",
+    "file": "public/assets/healthdog/received/reviews/review-02.webp",
+    "path": "/public/assets/healthdog/received/reviews/review-02.webp",
+    "width": 436,
+    "height": 549
+  },
+  {
+    "kind": "reviews",
+    "source": "/Users/cosmos/Downloads/petreviews (1)/KakaoTalk_20260530_210636816_02.png",
+    "file": "public/assets/healthdog/received/reviews/review-03.webp",
+    "path": "/public/assets/healthdog/received/reviews/review-03.webp",
+    "width": 496,
+    "height": 623
+  },
+  {
+    "kind": "reviews",
+    "source": "/Users/cosmos/Downloads/petreviews (1)/KakaoTalk_20260530_210645408.png",
+    "file": "public/assets/healthdog/received/reviews/review-04.webp",
+    "path": "/public/assets/healthdog/received/reviews/review-04.webp",
+    "width": 392,
+    "height": 644
+  }
+]
