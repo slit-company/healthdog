@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { branches } from "@/healthdog-data";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 type NavItem = {
   readonly label: string;
@@ -20,6 +21,15 @@ export function Header({ currentPath }: { readonly currentPath: string }): JSX.E
   const [isOpen, setIsOpen] = useState(false);
   const isActive = (href: string): boolean =>
     currentPath === href || currentPath.startsWith(`${href}/`);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
 
   return (
     <header className="sticky top-0 z-40 border-b border-hd-line bg-hd-base/95 backdrop-blur">
@@ -60,10 +70,23 @@ export function Header({ currentPath }: { readonly currentPath: string }): JSX.E
           <Menu className="h-5 w-5" />
         </Button>
       </div>
-      {isOpen ? (
-        <div className="fixed inset-0 z-50 bg-hd-ink/25 md:hidden">
-          <nav className="h-full w-[82vw] max-w-[320px] bg-hd-base shadow-[0_24px_70px_rgba(38,49,43,0.16)]">
-            <div className="flex h-20 items-center justify-between border-b border-hd-line px-5">
+      {createPortal(
+        <div
+          aria-hidden={!isOpen}
+          className={cn(
+            "fixed inset-0 z-[60] flex justify-end bg-hd-ink/45 transition-opacity duration-300 md:hidden",
+            isOpen ? "opacity-100" : "pointer-events-none opacity-0",
+          )}
+          onClick={() => setIsOpen(false)}
+        >
+          <nav
+            className={cn(
+              "flex h-full w-[82vw] max-w-[320px] flex-col bg-hd-base shadow-[0_24px_70px_rgba(38,49,43,0.16)] transition-transform duration-300 ease-out",
+              isOpen ? "translate-x-0" : "translate-x-full",
+            )}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex h-20 shrink-0 items-center justify-between border-b border-hd-line px-5">
               <a href="/">
                 <img
                   alt="Healthdog"
@@ -80,7 +103,7 @@ export function Header({ currentPath }: { readonly currentPath: string }): JSX.E
                 <X className="h-5 w-5" />
               </Button>
             </div>
-            <div className="py-2">
+            <div className="overflow-y-auto py-2">
               {navItems.map((item) => (
                 <a
                   className={cn(
@@ -96,8 +119,9 @@ export function Header({ currentPath }: { readonly currentPath: string }): JSX.E
               ))}
             </div>
           </nav>
-        </div>
-      ) : null}
+        </div>,
+        document.body,
+      )}
     </header>
   );
 }
