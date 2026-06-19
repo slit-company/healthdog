@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { telHref } from "./ui";
 
 type NavItem = {
   readonly label: string;
@@ -70,63 +71,67 @@ export function Header({ currentPath }: { readonly currentPath: string }): JSX.E
           <Menu className="h-5 w-5" />
         </Button>
       </div>
-      {createPortal(
-        <div
-          aria-hidden={!isOpen}
-          className={cn(
-            "fixed inset-0 z-[60] flex justify-end bg-hd-ink/45 transition-opacity duration-300 md:hidden",
-            isOpen ? "opacity-100" : "pointer-events-none opacity-0",
-          )}
-          onClick={() => setIsOpen(false)}
-        >
-          <nav
+      {typeof document !== "undefined" &&
+        createPortal(
+          <div
+            aria-hidden={!isOpen}
             className={cn(
-              "flex h-full w-[82vw] max-w-[320px] flex-col bg-hd-base shadow-[0_24px_70px_rgba(38,49,43,0.16)] transition-transform duration-300 ease-out",
-              isOpen ? "translate-x-0" : "translate-x-full",
+              "fixed inset-0 z-[60] flex justify-end bg-hd-ink/45 transition-opacity duration-300 md:hidden",
+              isOpen ? "opacity-100" : "pointer-events-none opacity-0",
             )}
-            onClick={(event) => event.stopPropagation()}
+            onClick={() => setIsOpen(false)}
           >
-            <div className="flex h-20 shrink-0 items-center justify-between border-b border-hd-line px-5">
-              <a href="/">
-                <img
-                  alt="Healthdog"
-                  className="h-14 w-auto object-contain"
-                  src="/healthdog_logo_nobg_cropped.png"
-                />
-              </a>
-              <Button
-                aria-label="메뉴 닫기"
-                onClick={() => setIsOpen(false)}
-                size="icon"
-                variant="ghost"
-              >
-                <X className="h-5 w-5" />
-              </Button>
-            </div>
-            <div className="overflow-y-auto py-2">
-              {navItems.map((item) => (
-                <a
-                  className={cn(
-                    "block border-b border-hd-line px-6 py-4 text-base text-hd-ink",
-                    isActive(item.href) && "font-semibold text-hd-sageDeep",
-                  )}
-                  href={item.href}
-                  key={item.href}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
+            <nav
+              className={cn(
+                "flex h-full w-[82vw] max-w-[320px] flex-col bg-hd-base shadow-[0_24px_70px_rgba(38,49,43,0.16)] transition-transform duration-300 ease-out",
+                isOpen ? "translate-x-0" : "translate-x-full",
+              )}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="flex h-20 shrink-0 items-center justify-between border-b border-hd-line px-5">
+                <a href="/">
+                  <img
+                    alt="Healthdog"
+                    className="h-14 w-auto object-contain"
+                    src="/healthdog_logo_nobg_cropped.png"
+                  />
                 </a>
-              ))}
-            </div>
-          </nav>
-        </div>,
-        document.body,
-      )}
+                <Button
+                  aria-label="메뉴 닫기"
+                  onClick={() => setIsOpen(false)}
+                  size="icon"
+                  variant="ghost"
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
+              <div className="overflow-y-auto py-2">
+                {navItems.map((item) => (
+                  <a
+                    className={cn(
+                      "block border-b border-hd-line px-6 py-4 text-base text-hd-ink",
+                      isActive(item.href) && "font-semibold text-hd-sageDeep",
+                    )}
+                    href={item.href}
+                    key={item.href}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </nav>
+          </div>,
+          document.body,
+        )}
     </header>
   );
 }
 
 export function Footer(): JSX.Element {
+  const licensedBranches = branches.filter(
+    (branch) => branch.animalSalesLicenseNumber !== undefined,
+  );
   return (
     <footer className="border-t border-hd-line bg-hd-cream px-4 py-12 text-sm leading-7 text-hd-muted md:px-10">
       <div className="mx-auto grid max-w-[1400px] gap-8 md:grid-cols-[1.2fr_1fr]">
@@ -138,7 +143,6 @@ export function Footer(): JSX.Element {
           />
           <p className="mt-4 max-w-2xl">
             헬스독은 아이와 보호자가 만나는 첫 순간을 차분하게 준비하는 상담 중심 사이트입니다.
-            사업자/정책 원문은 최종 확인 후 별도 고지합니다.
           </p>
         </div>
         <div className="grid gap-2 sm:grid-cols-2">
@@ -153,11 +157,49 @@ export function Footer(): JSX.Element {
           ))}
         </div>
       </div>
+      <div className="mx-auto mt-10 max-w-[1400px] border-t border-hd-line pt-6 text-xs leading-6 text-hd-muted/90">
+        {licensedBranches.length > 0 ? (
+          <ul className="grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
+            {licensedBranches.map((branch) => (
+              <li key={branch.slug}>
+                {branch.name} · 동물판매업 등록번호 {branch.animalSalesLicenseNumber}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>사업자 정보 및 동물판매업 등록번호는 지점별 확인 후 순차 고지 예정입니다.</p>
+        )}
+      </div>
     </footer>
   );
 }
 
-// ContactRail removed (no consultation feature)
-export function ContactRail(): null {
-  return null;
+export function ContactRail({ currentPath }: { readonly currentPath: string }): JSX.Element {
+  const branch = currentPath.startsWith("/branches/")
+    ? branches.find((item) => `/branches/${item.slug}` === currentPath)
+    : undefined;
+  const phoneTel = branch ? telHref(branch.phone) : null;
+
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-hd-line bg-hd-base/95 p-3 backdrop-blur md:hidden">
+      <div className="mx-auto flex max-w-[480px] gap-2">
+        {phoneTel !== null ? (
+          <Button asChild className="flex-1" variant="health">
+            <a href={phoneTel}>전화 상담</a>
+          </Button>
+        ) : (
+          <Button asChild className="flex-1" variant="health">
+            <a href="/branches">가까운 지점 상담 안내</a>
+          </Button>
+        )}
+        {branch?.kakaoHref ? (
+          <Button asChild className="flex-1" variant="healthOutline">
+            <a href={branch.kakaoHref} rel="noopener noreferrer" target="_blank">
+              카카오 문의
+            </a>
+          </Button>
+        ) : null}
+      </div>
+    </div>
+  );
 }

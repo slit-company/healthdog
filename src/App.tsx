@@ -10,20 +10,9 @@ import {
   getBranchSlug,
 } from "@/components/healthdog/pages";
 import { DesignSystemPage } from "@/components/pages/design-system-page";
-import { branches } from "@/healthdog-data";
+import { SITE_URL, getRouteMeta } from "@/healthdog/route-meta";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
-
-const defaultTitle = "헬스독";
-
-const routeTitles: Record<string, string> = {
-  "/": "헬스독 | 건강한 만남을 준비하는 상담",
-  "/about": "헬스독 소개",
-  "/pets": "헬스독 아이들 보기",
-  "/reviews": "헬스독 분양 후기",
-  "/branches": "헬스독 지점 안내",
-  "/design-system": "헬스독 디자인 시스템 프리뷰",
-};
 
 function normalizePath(pathname: string): string {
   if (pathname === "/home") return "/";
@@ -31,9 +20,24 @@ function normalizePath(pathname: string): string {
   return pathname.replace(/\/$/, "") || "/";
 }
 
-function getRouteTitle(pathname: string): string {
-  const branch = branches.find((item) => pathname === `/branches/${item.slug}`);
-  return branch ? `헬스독 ${branch.name}` : (routeTitles[pathname] ?? defaultTitle);
+function setMetaTag(key: string, content: string): void {
+  const existing = document.head.querySelector<HTMLMetaElement>(`meta[name="${key}"]`);
+  const el = existing ?? document.createElement("meta");
+  el.setAttribute("name", key);
+  el.setAttribute("content", content);
+  if (existing === null) {
+    document.head.appendChild(el);
+  }
+}
+
+function setCanonical(href: string): void {
+  const existing = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  const el = existing ?? document.createElement("link");
+  el.setAttribute("rel", "canonical");
+  el.setAttribute("href", href);
+  if (existing === null) {
+    document.head.appendChild(el);
+  }
 }
 
 export function App(): JSX.Element {
@@ -42,7 +46,10 @@ export function App(): JSX.Element {
   const selectedBranch = getBranchSlug(searchParams.get("branch"));
 
   useEffect(() => {
-    document.title = getRouteTitle(currentPath);
+    const meta = getRouteMeta(currentPath);
+    document.title = meta.title;
+    setMetaTag("description", meta.description);
+    setCanonical(`${SITE_URL}${meta.canonicalPath}`);
   }, [currentPath]);
 
   if (currentPath === "/design-system") {
@@ -75,11 +82,11 @@ export function App(): JSX.Element {
   }
 
   return (
-    <div className={cn("min-h-screen bg-hd-base text-hd-ink antialiased")}>
+    <div className={cn("min-h-screen bg-hd-base pb-20 text-hd-ink antialiased md:pb-0")}>
       <Header currentPath={currentPath} />
       {page}
       <Footer />
-      <ContactRail />
+      <ContactRail currentPath={currentPath} />
     </div>
   );
 }

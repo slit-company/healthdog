@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { type BranchSlug, branches } from "@/healthdog-data";
 import { ExternalLink } from "lucide-react";
-import { GeneratedBand, SectionIntro } from "./ui";
+import { GeneratedBand, SectionIntro, telHref } from "./ui";
 
 function reviewHref(naverPlaceHref: string): string {
   const id = naverPlaceHref.split("/").pop() ?? "";
@@ -21,6 +21,7 @@ export function BranchDetailPage({ branchSlug }: { readonly branchSlug: BranchSl
     );
   }
 
+  const phoneTel = telHref(branch.phone);
   const directLinks = [
     {
       label: "네이버 플레이스 후기",
@@ -89,12 +90,26 @@ export function BranchDetailPage({ branchSlug }: { readonly branchSlug: BranchSl
             </div>
             <div>
               <dt className="font-semibold text-hd-ink">전화번호</dt>
-              <dd>{branch.phone}</dd>
+              <dd>
+                {phoneTel ? (
+                  <a className="hover:underline" href={phoneTel}>
+                    {branch.phone}
+                  </a>
+                ) : (
+                  branch.phone
+                )}
+              </dd>
             </div>
             <div>
               <dt className="font-semibold text-hd-ink">영업시간</dt>
-              <dd>{branch.hours}</dd>
+              <dd>{branch.realHours ?? branch.hours}</dd>
             </div>
+            {branch.animalSalesLicenseNumber ? (
+              <div>
+                <dt className="font-semibold text-hd-ink">동물판매업 등록번호</dt>
+                <dd>{branch.animalSalesLicenseNumber}</dd>
+              </div>
+            ) : null}
           </dl>
         </div>
 

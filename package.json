@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "tsc --noEmit && vite build",
-    "check": "biome check . && tsc --noEmit"
+    "build": "tsc --noEmit && vite build && vite build --ssr src/entry-server.tsx --outDir dist-server && node scripts/prerender.mjs",
+    "check": "biome check . && tsc --noEmit",
+    "check:seo": "node scripts/checks/seo.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",

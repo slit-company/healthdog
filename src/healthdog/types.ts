@@ -23,6 +23,10 @@ export type HealthdogBranch = {
   readonly blogHref: string;
   readonly instagramHref: string;
   readonly kakaoHref?: string;
+  readonly animalSalesLicenseNumber?: string;
+  readonly businessRegistrationNumber?: string;
+  readonly representative?: string;
+  readonly realHours?: string;
 };
 
 export type Branch = HealthdogBranch & {

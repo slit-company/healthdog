@@ -11,6 +11,11 @@ import {
 import { cn } from "@/lib/utils";
 import { ArrowRight, ExternalLink, MapPin } from "lucide-react";
 
+export function telHref(phone: string): string | null {
+  const digits = phone.replace(/[^0-9]/g, "");
+  return digits.length >= 9 ? `tel:${digits}` : null;
+}
+
 type SectionIntroProps = {
   readonly eyebrow: string;
   readonly title: string;
@@ -90,6 +95,7 @@ export function CtaRow(): JSX.Element {
 }
 
 export function BranchCard({ branch }: { readonly branch: Branch }): JSX.Element {
+  const phoneTel = telHref(branch.phone);
   return (
     <Card className="h-full border-hd-line bg-hd-card shadow-[0_10px_30px_rgba(57,49,37,0.06)] transition hover:-translate-y-0.5 hover:border-hd-sageDeep/40 hover:shadow-[0_16px_42px_rgba(57,49,37,0.10)]">
       <CardContent className="flex h-full flex-col p-8 md:p-9">
@@ -111,7 +117,15 @@ export function BranchCard({ branch }: { readonly branch: Branch }): JSX.Element
           </div>
           <div>
             <dt className="inline font-semibold text-hd-ink">전화 </dt>
-            <dd className="inline">{branch.phone}</dd>
+            <dd className="inline">
+              {phoneTel ? (
+                <a className="text-hd-ink underline-offset-2 hover:underline" href={phoneTel}>
+                  {branch.phone}
+                </a>
+              ) : (
+                branch.phone
+              )}
+            </dd>
           </div>
         </dl>
         <div className="mt-auto flex flex-wrap gap-3 pt-7">
@@ -131,7 +145,18 @@ export function BranchCard({ branch }: { readonly branch: Branch }): JSX.Element
   );
 }
 
-export function PetCard({ pet }: { readonly pet: { id: string; name: string; image: string; type: string; branch: BranchSlug; status: string } }): JSX.Element {
+export function PetCard({
+  pet,
+}: {
+  readonly pet: {
+    id: string;
+    name: string;
+    image: string;
+    type: string;
+    branch: BranchSlug;
+    status: string;
+  };
+}): JSX.Element {
   const branch = branches.find((item) => item.slug === pet.branch);
   return (
     <Card className="group overflow-hidden border-hd-line bg-hd-card shadow-[0_10px_30px_rgba(57,49,37,0.06)]">
@@ -149,11 +174,7 @@ export function PetCard({ pet }: { readonly pet: { id: string; name: string; ima
         </p>
         <p className="mt-2 text-base text-hd-muted">{pet.status}</p>
         <Button asChild className="mt-6 w-full" variant="healthSecondary">
-          <a
-            href={branch?.naverPlaceHref ?? "/branches"}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
+          <a href={branch?.naverPlaceHref ?? "/branches"} rel="noopener noreferrer" target="_blank">
             지점 네이버 지도
             <ExternalLink className="h-4 w-4" />
           </a>
@@ -163,9 +184,7 @@ export function PetCard({ pet }: { readonly pet: { id: string; name: string; ima
   );
 }
 
-export function ReviewGallery({
-  reviews,
-}: { readonly reviews: readonly Review[] }): JSX.Element {
+export function ReviewGallery({ reviews }: { readonly reviews: readonly Review[] }): JSX.Element {
   if (reviews.length === 0) {
     return (
       <p className="py-16 text-center text-base text-hd-muted">
@@ -191,9 +210,7 @@ export function ReviewGallery({
               src={review.image}
             />
             <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/20 to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <p className="line-clamp-3 text-sm leading-snug text-white">
-                {review.excerpt}
-              </p>
+              <p className="line-clamp-3 text-sm leading-snug text-white">{review.excerpt}</p>
               <p className="mt-1 text-xs text-white/60">{review.source}</p>
             </div>
           </a>
@@ -260,6 +277,10 @@ export function TrustStats(): JSX.Element {
         </div>
         <p className="mt-6 text-center text-sm leading-7 text-hd-muted md:text-base">
           전국 연계병원 80여 곳 · 분양 전 건강검진 2회 + 분양 후 무료 1회 · 추가금 없는 정찰제
+        </p>
+        <p className="mt-3 text-center text-xs leading-6 text-hd-muted/80">
+          * 누적 분양·클레임률은 6개 지점 자체 집계 기준이며, 후기 수는 네이버 플레이스 합계
+          기준입니다.
         </p>
       </div>
     </section>
