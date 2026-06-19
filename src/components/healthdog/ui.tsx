@@ -233,10 +233,10 @@ export function BranchReviewLinks(): JSX.Element {
   );
 }
 
-// 헬스독 공식 지표 — 네이버 플레이스(송파 본점) 기준. 값 변경 시 여기만 수정.
+// 헬스독 공식 지표 — 네이버 플레이스 기준(후기 수는 6개 지점 합계). 값 변경 시 여기만 수정.
 const brandStats = [
   { value: "45,000건+", label: "누적 분양" },
-  { value: "2,158건", label: "네이버 실제 후기" },
+  { value: "11,000건+", label: "네이버 실제 후기" },
   { value: "0.7%", label: "분양 후 클레임률" },
   { value: "24시간", label: "상담 운영" },
 ] as const;

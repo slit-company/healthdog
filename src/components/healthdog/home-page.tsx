@@ -57,28 +57,6 @@ export function HomePage(): JSX.Element {
           ))}
         </div>
       </section>
-      <section className="bg-hd-sage px-4 py-16 md:px-10 md:py-24">
-        <SectionIntro
-          eyebrow="Care standard"
-          title="건강관리 기준과 분양 조건은 크게 약속하지 않고 확인합니다"
-        />
-        <div className="mx-auto grid max-w-[1440px] gap-8 lg:grid-cols-2">
-          <GeneratedBand
-            alt="헬스독 건강관리 기준 안내"
-            desktop="health-standard-desktop.png"
-            desktopAspect="md:aspect-[1586/992]"
-            mobile="health-standard-mobile.png"
-            mobileAspect="aspect-[1036/1519]"
-          />
-          <GeneratedBand
-            alt="헬스독 분양 조건 안내"
-            desktop="adoption-terms-desktop.png"
-            desktopAspect="md:aspect-[2172/724]"
-            mobile="adoption-terms-mobile.png"
-            mobileAspect="aspect-[1199/1312]"
-          />
-        </div>
-      </section>
       <section className="bg-hd-base py-16 md:py-24">
         <div className="px-4 md:px-10">
           <SectionIntro
