@@ -1,7 +1,6 @@
 import { type Branch, branches } from "@/healthdog-data";
 
-// TODO(client): 최종 운영 도메인으로 교체 (가비아 연결 도메인 확정 후). canonical/OG/sitemap 기준 URL.
-export const SITE_URL = "https://www.healthdog.co.kr";
+export const SITE_URL = "https://healthdog.co.kr";
 export const SITE_NAME = "헬스독";
 const OG_IMAGE = `${SITE_URL}/healthdog_logo_nobg_cropped.png`;
 
