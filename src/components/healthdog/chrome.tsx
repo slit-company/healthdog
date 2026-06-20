@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
+import { REP_KAKAO_HREF, REP_PHONE_HREF } from "@/healthdog/contact";
 import { branches } from "@/healthdog-data";
 import { cn } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
+import { Menu, MessageCircle, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { telHref } from "./ui";
 
 type NavItem = {
   readonly label: string;
@@ -174,32 +174,49 @@ export function Footer(): JSX.Element {
   );
 }
 
-export function ContactRail({ currentPath }: { readonly currentPath: string }): JSX.Element {
-  const branch = currentPath.startsWith("/branches/")
-    ? branches.find((item) => `/branches/${item.slug}` === currentPath)
-    : undefined;
-  const phoneTel = branch ? telHref(branch.phone) : null;
-
+export function ContactRail(): JSX.Element {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-hd-line bg-hd-base/95 p-3 backdrop-blur md:hidden">
-      <div className="mx-auto flex max-w-[480px] gap-2">
-        {phoneTel !== null ? (
+    <>
+      <nav
+        aria-label="빠른 상담"
+        className="fixed right-3 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-3 md:flex"
+      >
+        <a
+          className="flex h-[70px] w-[70px] flex-col items-center justify-center gap-1 rounded-full bg-hd-green text-hd-ink shadow-[0_10px_30px_rgba(92,191,111,0.30)] transition hover:-translate-y-0.5"
+          href={REP_PHONE_HREF}
+        >
+          <Phone className="h-5 w-5" />
+          <span className="text-[11px] font-semibold">전화연결</span>
+        </a>
+        <a
+          className="flex h-[70px] w-[70px] flex-col items-center justify-center gap-1 rounded-full bg-[#FEE500] text-[#3c1e1e] shadow-[0_10px_30px_rgba(38,49,43,0.16)] transition hover:-translate-y-0.5"
+          href={REP_KAKAO_HREF}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <MessageCircle className="h-5 w-5" />
+          <span className="text-[11px] font-semibold">카톡상담</span>
+        </a>
+      </nav>
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-hd-line bg-hd-base/95 p-3 backdrop-blur md:hidden">
+        <div className="mx-auto flex max-w-[480px] gap-2">
           <Button asChild className="flex-1" variant="health">
-            <a href={phoneTel}>전화 상담</a>
-          </Button>
-        ) : (
-          <Button asChild className="flex-1" variant="health">
-            <a href="/branches">가까운 지점 상담 안내</a>
-          </Button>
-        )}
-        {branch?.kakaoHref ? (
-          <Button asChild className="flex-1" variant="healthOutline">
-            <a href={branch.kakaoHref} rel="noopener noreferrer" target="_blank">
-              카카오 문의
+            <a href={REP_PHONE_HREF}>
+              <Phone className="h-4 w-4" />
+              전화 상담
             </a>
           </Button>
-        ) : null}
+          <a
+            className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-[#FEE500] text-base font-semibold text-[#3c1e1e] transition hover:-translate-y-0.5"
+            href={REP_KAKAO_HREF}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <MessageCircle className="h-4 w-4" />
+            카톡 상담
+          </a>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

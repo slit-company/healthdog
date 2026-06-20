@@ -86,7 +86,7 @@ export function App(): JSX.Element {
       <Header currentPath={currentPath} />
       {page}
       <Footer />
-      <ContactRail currentPath={currentPath} />
+      <ContactRail />
     </div>
   );
 }

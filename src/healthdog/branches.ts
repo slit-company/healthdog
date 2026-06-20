@@ -37,7 +37,7 @@ export const healthdogBranches: readonly HealthdogBranch[] = [
     naverPlaceHref: "https://map.naver.com/p/entry/place/2023622711",
     blogHref: "https://blog.naver.com/gpwjd7240",
     instagramHref: "https://www.instagram.com/healthdog.1/",
-    kakaoHref: "http://pf.kakao.com/_xjxcxccn",
+    kakaoHref: "https://pf.kakao.com/_xjxcxccn",
   },
   {
     slug: "pyeongtaek",
@@ -50,7 +50,7 @@ export const healthdogBranches: readonly HealthdogBranch[] = [
     naverPlaceHref: "https://map.naver.com/p/entry/place/2073295754",
     blogHref: "https://blog.naver.com/baik3019",
     instagramHref: "https://map.naver.com/p/entry/place/2073295754",
-    kakaoHref: "http://pf.kakao.com/_HDxown",
+    kakaoHref: "https://pf.kakao.com/_HDxown",
   },
   {
     slug: "incheon-gimpo",
@@ -76,7 +76,7 @@ export const healthdogBranches: readonly HealthdogBranch[] = [
     naverPlaceHref: "https://map.naver.com/p/entry/place/2096132236",
     blogHref: "https://blog.naver.com/young417602",
     instagramHref: "https://www.instagram.com/heal_thdog_official",
-    kakaoHref: "http://pf.kakao.com/_Stywn",
+    kakaoHref: "https://pf.kakao.com/_Stywn",
   },
 ] as const;
 
