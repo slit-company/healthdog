@@ -50,7 +50,7 @@ export const healthdogBranches: readonly HealthdogBranch[] = [
     naverPlaceHref: "https://map.naver.com/p/entry/place/2073295754",
     blogHref: "https://blog.naver.com/baik3019",
     instagramHref: "https://map.naver.com/p/entry/place/2073295754",
-    kakaoHref: "https://pf.kakao.com/_HDxown",
+    kakaoHref: "https://pf.kakao.com/_SVxkxon",
   },
   {
     slug: "incheon-gimpo",

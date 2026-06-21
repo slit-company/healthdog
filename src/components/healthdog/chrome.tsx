@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { REP_KAKAO_HREF, REP_PHONE_HREF } from "@/healthdog/contact";
+import { REP_PHONE_HREF } from "@/healthdog/contact";
 import { branches } from "@/healthdog-data";
 import { cn } from "@/lib/utils";
 import { Menu, MessageCircle, Phone, X } from "lucide-react";
@@ -174,9 +174,55 @@ export function Footer(): JSX.Element {
   );
 }
 
+function kakaoBranchList(
+  items: readonly { readonly slug: string; readonly name: string; readonly href: string }[],
+  onPick: () => void,
+): JSX.Element {
+  return (
+    <div className="rounded-2xl border border-hd-line bg-hd-card p-2 shadow-[0_16px_42px_rgba(38,49,43,0.18)]">
+      <p className="px-3 pb-1 pt-1 text-xs text-hd-muted">카톡 상담 지점 선택</p>
+      {items.map((item) => (
+        <a
+          className="block rounded-lg px-3 py-2.5 text-sm font-medium text-hd-ink transition hover:bg-hd-sage"
+          href={item.href}
+          key={item.slug}
+          onClick={onPick}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          {item.name}
+        </a>
+      ))}
+    </div>
+  );
+}
+
 export function ContactRail(): JSX.Element {
+  const [kakaoOpen, setKakaoOpen] = useState(false);
+  const kakaoBranches = branches.flatMap((branch) =>
+    branch.kakaoHref ? [{ slug: branch.slug, name: branch.name, href: branch.kakaoHref }] : [],
+  );
+  const closeKakao = (): void => setKakaoOpen(false);
+
+  useEffect(() => {
+    if (!kakaoOpen) return;
+    const onKey = (event: KeyboardEvent): void => {
+      if (event.key === "Escape") setKakaoOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [kakaoOpen]);
+
   return (
     <>
+      {kakaoOpen ? (
+        <button
+          aria-label="카톡 지점 목록 닫기"
+          className="fixed inset-0 z-30 cursor-default"
+          onClick={closeKakao}
+          type="button"
+        />
+      ) : null}
       <nav
         aria-label="빠른 상담"
         className="fixed right-3 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-3 md:flex"
@@ -188,15 +234,22 @@ export function ContactRail(): JSX.Element {
           <Phone className="h-5 w-5" />
           <span className="text-[11px] font-semibold">전화연결</span>
         </a>
-        <a
-          className="flex h-[70px] w-[70px] flex-col items-center justify-center gap-1 rounded-full bg-[#FEE500] text-[#3c1e1e] shadow-[0_10px_30px_rgba(38,49,43,0.16)] transition hover:-translate-y-0.5"
-          href={REP_KAKAO_HREF}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <MessageCircle className="h-5 w-5" />
-          <span className="text-[11px] font-semibold">카톡상담</span>
-        </a>
+        <div className="relative">
+          <button
+            aria-expanded={kakaoOpen}
+            className="flex h-[70px] w-[70px] flex-col items-center justify-center gap-1 rounded-full bg-[#FEE500] text-[#3c1e1e] shadow-[0_10px_30px_rgba(38,49,43,0.16)] transition hover:-translate-y-0.5"
+            onClick={() => setKakaoOpen((open) => !open)}
+            type="button"
+          >
+            <MessageCircle className="h-5 w-5" />
+            <span className="text-[11px] font-semibold">카톡상담</span>
+          </button>
+          {kakaoOpen ? (
+            <div className="absolute right-full top-1/2 mr-3 w-48 -translate-y-1/2">
+              {kakaoBranchList(kakaoBranches, closeKakao)}
+            </div>
+          ) : null}
+        </div>
       </nav>
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-hd-line bg-hd-base/95 p-3 backdrop-blur md:hidden">
         <div className="mx-auto flex max-w-[480px] gap-2">
@@ -206,15 +259,22 @@ export function ContactRail(): JSX.Element {
               전화 상담
             </a>
           </Button>
-          <a
-            className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-[#FEE500] text-base font-semibold text-[#3c1e1e] transition hover:-translate-y-0.5"
-            href={REP_KAKAO_HREF}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <MessageCircle className="h-4 w-4" />
-            카톡 상담
-          </a>
+          <div className="relative flex-1">
+            <button
+              aria-expanded={kakaoOpen}
+              className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#FEE500] text-base font-semibold text-[#3c1e1e] transition hover:-translate-y-0.5"
+              onClick={() => setKakaoOpen((open) => !open)}
+              type="button"
+            >
+              <MessageCircle className="h-4 w-4" />
+              카톡 상담
+            </button>
+            {kakaoOpen ? (
+              <div className="absolute inset-x-0 bottom-full z-40 mb-2">
+                {kakaoBranchList(kakaoBranches, closeKakao)}
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
     </>
