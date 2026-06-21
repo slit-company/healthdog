@@ -6,6 +6,7 @@ import {
   BranchesPage,
   NotFoundPage,
   PetsPage,
+  PrivacyPage,
   ReviewsPage,
   getBranchSlug,
 } from "@/components/healthdog/pages";
@@ -76,6 +77,9 @@ export function App(): JSX.Element {
       break;
     case "/branches":
       page = <BranchesPage />;
+      break;
+    case "/privacy":
+      page = <PrivacyPage />;
       break;
     default:
       page = branchPath ? <BranchDetailPage branchSlug={branchPath} /> : <NotFoundPage />;

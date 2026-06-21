@@ -110,6 +110,18 @@ export function BranchDetailPage({ branchSlug }: { readonly branchSlug: BranchSl
                 <dd>{branch.animalSalesLicenseNumber}</dd>
               </div>
             ) : null}
+            {branch.businessRegistrationNumber ? (
+              <div>
+                <dt className="font-semibold text-hd-ink">사업자등록번호</dt>
+                <dd>{branch.businessRegistrationNumber}</dd>
+              </div>
+            ) : null}
+            {branch.representative ? (
+              <div>
+                <dt className="font-semibold text-hd-ink">대표자</dt>
+                <dd>{branch.representative}</dd>
+              </div>
+            ) : null}
           </dl>
         </div>
 

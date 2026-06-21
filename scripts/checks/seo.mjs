@@ -37,7 +37,7 @@ if (about !== null) {
 const branch = read("branches/incheon-gimpo.html");
 check(branch !== null, "dist/branches/incheon-gimpo.html missing");
 if (branch !== null) {
-  check(branch.includes("인천김포"), "branch page missing branch name in head meta");
+  check(branch.includes("인천점"), "branch page missing branch name in head meta");
   check(branch.includes('"@type":"PetStore"'), "branch page missing PetStore JSON-LD");
 }
 

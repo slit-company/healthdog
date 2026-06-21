@@ -152,6 +152,73 @@ export function BranchesPage(): JSX.Element {
   );
 }
 
+const privacySections: readonly { readonly title: string; readonly body: string }[] = [
+  {
+    title: "1. 개인정보의 처리 목적",
+    body: "헬스독(이하 '회사')은 분양 상담 및 문의 응대, 분양 후 사후관리 안내, 방문·예약 일정 조율을 위하여 개인정보를 처리하며, 그 외의 용도로는 이용하지 않습니다.",
+  },
+  {
+    title: "2. 수집하는 개인정보 항목 및 수집 방법",
+    body: "전화 상담 및 카카오톡 채널 문의 과정에서 성명, 연락처(휴대전화번호), 상담 내용이 수집될 수 있습니다.",
+  },
+  {
+    title: "3. 개인정보의 보유 및 이용 기간",
+    body: "수집·이용 목적이 달성된 후에는 지체 없이 파기합니다. 다만 관계 법령에 따라 보존이 필요한 경우 해당 법령에서 정한 기간 동안 보관합니다.",
+  },
+  {
+    title: "4. 개인정보의 제3자 제공",
+    body: "회사는 정보주체의 동의가 있거나 법령에 특별한 규정이 있는 경우를 제외하고는 개인정보를 외부에 제공하지 않습니다.",
+  },
+  {
+    title: "5. 개인정보 처리의 위탁",
+    body: "회사는 현재 개인정보 처리를 외부에 위탁하지 않습니다. 위탁이 발생하는 경우 위탁 내용과 수탁자를 본 방침을 통해 공개하겠습니다.",
+  },
+  {
+    title: "6. 정보주체의 권리·의무 및 행사 방법",
+    body: "정보주체는 언제든지 본인의 개인정보에 대한 열람·정정·삭제·처리정지를 요구할 수 있으며, 회사는 요청을 받은 즉시 필요한 조치를 취합니다.",
+  },
+  {
+    title: "7. 개인정보의 파기",
+    body: "보유기간이 경과하거나 처리 목적이 달성된 개인정보는 복구·재생이 불가능한 방법으로 파기합니다. 전자적 파일은 영구 삭제하고, 출력물은 분쇄 또는 소각합니다.",
+  },
+  {
+    title: "8. 개인정보의 안전성 확보 조치",
+    body: "회사는 개인정보 접근 권한 관리, 접근 통제, 보관 매체의 잠금 등 안전성 확보에 필요한 조치를 취합니다.",
+  },
+  {
+    title: "9. 개인정보 보호책임자",
+    body: "개인정보 보호책임자: 황부영 · 대표 연락처 1600-4533. 개인정보 처리에 관한 문의·불만·피해구제는 보호책임자에게 연락하실 수 있습니다.",
+  },
+  {
+    title: "10. 권익침해 구제 방법",
+    body: "개인정보 침해로 인한 분쟁 해결이나 상담이 필요한 경우 개인정보분쟁조정위원회(1833-6972), 개인정보침해신고센터(118), 대검찰청(1301), 경찰청(182)에 신청하실 수 있습니다.",
+  },
+  {
+    title: "11. 시행일",
+    body: "본 개인정보처리방침은 2026년 6월 22일부터 시행됩니다.",
+  },
+];
+
+export function PrivacyPage(): JSX.Element {
+  return (
+    <main className="bg-hd-base px-4 py-16 md:px-10 md:py-24">
+      <SectionIntro
+        body="헬스독은 정보주체의 개인정보를 소중히 보호하며, 개인정보보호법을 준수합니다."
+        eyebrow="Privacy"
+        title="개인정보처리방침"
+      />
+      <div className="mx-auto max-w-3xl space-y-8">
+        {privacySections.map((section) => (
+          <section key={section.title}>
+            <h2 className="text-lg font-semibold text-hd-ink">{section.title}</h2>
+            <p className="mt-2 text-base leading-8 text-hd-muted">{section.body}</p>
+          </section>
+        ))}
+      </div>
+    </main>
+  );
+}
+
 export function NotFoundPage(): JSX.Element {
   return (
     <main className="bg-hd-base px-4 py-24 text-center">

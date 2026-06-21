@@ -162,13 +162,18 @@ export function Footer(): JSX.Element {
           <ul className="grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
             {licensedBranches.map((branch) => (
               <li key={branch.slug}>
-                {branch.name} · 동물판매업 등록번호 {branch.animalSalesLicenseNumber}
+                {`${branch.name} · 대표 ${branch.representative ?? "확인 중"} · 사업자등록번호 ${branch.businessRegistrationNumber ?? "확인 중"} · 동물판매업 ${branch.animalSalesLicenseNumber ?? "확인 중"}`}
               </li>
             ))}
           </ul>
         ) : (
           <p>사업자 정보 및 동물판매업 등록번호는 지점별 확인 후 순차 고지 예정입니다.</p>
         )}
+        <p className="mt-4">
+          <a className="text-hd-ink underline-offset-2 hover:underline" href="/privacy">
+            개인정보처리방침
+          </a>
+        </p>
       </div>
     </footer>
   );

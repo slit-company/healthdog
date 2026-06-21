@@ -68,10 +68,22 @@ const STATIC_META: ReadonlyMap<string, RouteMeta> = new Map<string, RouteMeta>([
     {
       title: "지점 안내 | 헬스독 6개 지점",
       description:
-        "헬스독 수원·평택·송파·부산·인천김포·창원 6개 지점 안내. 주소·전화·네이버 플레이스 후기와 방문 상담 정보를 확인하세요.",
+        "헬스독 송파·수원·인천·평택·부산·창원 6개 지점 안내. 주소·전화·네이버 플레이스 후기와 방문 상담 정보를 확인하세요.",
       canonicalPath: "/branches",
       ogTitle: "헬스독 지점 안내",
       ogDescription: "전국 6개 지점 분양 상담 안내",
+      ogImage: OG_IMAGE,
+    },
+  ],
+  [
+    "/privacy",
+    {
+      title: "개인정보처리방침 | 헬스독",
+      description:
+        "헬스독 개인정보처리방침 — 분양 상담 과정에서 수집하는 개인정보 항목, 이용 목적, 보유 기간과 정보주체의 권리를 안내합니다.",
+      canonicalPath: "/privacy",
+      ogTitle: "헬스독 개인정보처리방침",
+      ogDescription: "헬스독 개인정보처리방침 안내",
       ogImage: OG_IMAGE,
     },
   ],
@@ -113,6 +125,7 @@ export const PRERENDER_ROUTES: readonly string[] = [
   "/pets",
   "/reviews",
   "/branches",
+  "/privacy",
   ...branches.map((branch) => `/branches/${branch.slug}`),
 ];
 
