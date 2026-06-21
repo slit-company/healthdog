@@ -13,6 +13,8 @@ export const healthdogBranches: readonly HealthdogBranch[] = [
     blogHref: "https://blog.naver.com/82bcgpcvhq",
     instagramHref: "https://www.instagram.com/healt__dog/",
     kakaoHref: "https://pf.kakao.com/_SVxkxon",
+    animalSalesLicenseNumber: "5670000-045-2025-0003",
+    realHours: "10:00 - 22:00",
   },
   {
     slug: "suwon",
@@ -78,6 +80,7 @@ export const healthdogBranches: readonly HealthdogBranch[] = [
     blogHref: "https://blog.naver.com/young417602",
     instagramHref: "https://www.instagram.com/heal_thdog_official",
     kakaoHref: "https://pf.kakao.com/_Stywn",
+    animalSalesLicenseNumber: "3230000-045-2023-0002",
   },
 ] as const;
 
