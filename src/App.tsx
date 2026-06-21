@@ -82,7 +82,7 @@ export function App(): JSX.Element {
   }
 
   return (
-    <div className={cn("min-h-screen bg-hd-base pb-20 text-hd-ink antialiased md:pb-0")}>
+    <div className={cn("min-h-screen bg-hd-base text-hd-ink antialiased")}>
       <Header currentPath={currentPath} />
       {page}
       <Footer />

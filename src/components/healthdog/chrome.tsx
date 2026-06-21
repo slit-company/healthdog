@@ -225,7 +225,7 @@ export function ContactRail(): JSX.Element {
       ) : null}
       <nav
         aria-label="빠른 상담"
-        className="fixed right-3 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-3 md:flex"
+        className="fixed right-3 top-1/2 z-40 flex -translate-y-1/2 flex-col gap-2.5 md:gap-3"
       >
         <a
           className="flex h-[70px] w-[70px] flex-col items-center justify-center gap-1 rounded-full bg-hd-green text-hd-ink shadow-[0_10px_30px_rgba(92,191,111,0.30)] transition hover:-translate-y-0.5"
@@ -251,32 +251,6 @@ export function ContactRail(): JSX.Element {
           ) : null}
         </div>
       </nav>
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-hd-line bg-hd-base/95 p-3 backdrop-blur md:hidden">
-        <div className="mx-auto flex max-w-[480px] gap-2">
-          <Button asChild className="flex-1" variant="health">
-            <a href={REP_PHONE_HREF}>
-              <Phone className="h-4 w-4" />
-              전화 상담
-            </a>
-          </Button>
-          <div className="relative flex-1">
-            <button
-              aria-expanded={kakaoOpen}
-              className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#FEE500] text-base font-semibold text-[#3c1e1e] transition hover:-translate-y-0.5"
-              onClick={() => setKakaoOpen((open) => !open)}
-              type="button"
-            >
-              <MessageCircle className="h-4 w-4" />
-              카톡 상담
-            </button>
-            {kakaoOpen ? (
-              <div className="absolute inset-x-0 bottom-full z-40 mb-2">
-                {kakaoBranchList(kakaoBranches, closeKakao)}
-              </div>
-            ) : null}
-          </div>
-        </div>
-      </div>
     </>
   );
 }
